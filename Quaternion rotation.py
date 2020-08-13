@@ -13,7 +13,7 @@ def Quat(alpha):
     x=x*math.sin(alpha/2)
     z=z*math.sin(alpha/2)
     return(w,x,y,z)
-    q=[]
+q=[]
 q=Quat(-60)
 
 rt=np.matrix([[((1-2*(q[2]**2))-2*(q[3]**2))  ,  2*(q[1]*q[2]-q[0]*q[3]), 2*(q[1]*q[3]+q[0]*q[2]) ],
