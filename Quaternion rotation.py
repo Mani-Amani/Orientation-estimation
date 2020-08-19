@@ -37,18 +37,20 @@ def q_to_axisangle(q):
 def qv_mult(q1, v1):
     q2 = (0.0,) + v1
     return q_mult(q_mult(q1, q2), q_conjugate(q1))[1:]
-rt=np.matrix([[((1-2*(q[2]**2))-2*(q[3]**2))  ,  2*(q[1]*q[2]-q[0]*q[3]), 2*(q[1]*q[3]+q[0]*q[2]) ],
-            [2*(q[1]*q[2]+q[0]*q[3]), ((1-2*(q[1]**2))-2*(q[3]**2)), 2*(q[2]*q[3]-q[0]*q[1])  ],
-            [2*(q[1]*q[3]-q[0]*q[2]), 2*(q[2]*q[3]+q[0]*q[1]),((1-2*(q[1]**2))-2*(q[2]**2)) ]])
-vec=[[1],[0],[0]]
-print(rt)
-rotated=rt*vec
-print(rotated)
+x_axis_unit = (1, 0, 0)
+y_axis_unit = (0, 1, 0)
+z_axis_unit = (0, 0, 1)
+r1 = Quat(x_axis_unit, np.pi / 6)
+
+
+v = qv_mult(r1, y_axis_unit)
+print(v)
+
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.quiver(0,0,0,n[0],n[1],n[2])
-ax.quiver(0,0,0,rotated[0],rotated[1],rotated[2],color='green')
-ax.quiver(0,0,0,vec[0],vec[1],vec[2],color='red')
+ax.quiver(0,0,0,v[0],v[1],v[2],color='green')
+ax.quiver(0,0,0,x_axis_unit[0],x_axis_unit[1],x_axis_unit[2])
+
 ax.set_xlim([1, 0])
 ax.set_ylim([1, 0])
 ax.set_zlim([0, 1])
